@@ -5,6 +5,7 @@ const execa = require('execa');
 const chalk = require('chalk');
 const { prompt } = require('enquirer');
 const cp = require('child_process');
+const { generateTags } = require('./utlis');
 
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts })
@@ -31,6 +32,7 @@ async function main() {
   if (!yes) {
     return
   }
+
   if (type === 'merge') {
     // merge master
     await run('git', ['merge', 'origin/master'])
