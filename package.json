@@ -1,0 +1,27 @@
+{
+  "name": "@jason-create/publish-helper",
+  "version": "1.0.0",
+  "description": "a publish helper tool",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "jpublish": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "publish",
+    "tool"
+  ],
+  "author": "liuzeyang",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "enquirer": "^2.3.6",
+    "execa": "^5.1.1",
+    "minimist": "^1.2.5"
+  }
+}
