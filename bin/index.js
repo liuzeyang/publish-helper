@@ -4,6 +4,7 @@ const args = require('minimist')(process.argv.slice(2));
 const execa = require('execa');
 const chalk = require('chalk');
 const { prompt } = require('enquirer');
+const cp = require('child_process');
 
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts })
@@ -30,10 +31,11 @@ async function main() {
   if (!yes) {
     return
   }
-
   if (type === 'merge') {
+    // merge master
     await run('git', ['merge', 'origin/master'])
   } else {
+    // 打包以及提交
     step('\nRunning build...')
     await run('npm', ['run', 'build'])
 
@@ -53,17 +55,28 @@ async function main() {
 
     step('\nPushing to GitHub...')
     await run('git', ['push'])
-
+    // tag 模块 ：1. 自动生成 2.手动输入
     if (type === 'tag') {
       let tagVersion = args.tag;
       if (!tagVersion) {
-        let { tag } = await prompt({
-          type: 'input',
-          name: 'tag',
-          message: 'input your tag version',
+        let { auto } = await prompt({
+          type: 'confirm',
+          name: 'auto',
+          message: 'need auto create?'
         })
-        tagVersion = tag
+        if (auto) {
+          let tags = await cp.execSync('git describe --tags `git rev-list --tags --max-count=1`').toString()
+          tagVersion = generateTags(tags)
+        } else {
+          let { tag } = await prompt({
+            type: 'input',
+            name: 'tag',
+            message: 'input your tag version',
+          })
+          tagVersion = tag
+        }
       }
+      // 提交tag
       step('\nPushing tag to GitHub...')
       await run('git', ['tag', tagVersion])
       await run('git', ['push', '--tags'])
