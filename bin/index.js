@@ -12,13 +12,13 @@ const step = msg => console.log(chalk.cyan(msg))
 async function main() {
   let type = args.type
   if (!type) {
-    let { slef } = await prompt({
+    let { self } = await prompt({
       type: 'select',
       name: 'self',
       message: 'Select op type',
       choices: ['merge', 'publish', 'tag']
     })
-    type = slef
+    type = self
   }
 
   const { yes } = await prompt({
@@ -33,7 +33,6 @@ async function main() {
 
   if (type === 'merge') {
     await run('git', ['merge', 'origin/master'])
-    return
   } else {
     step('\nRunning build...')
     await run('npm', ['run', 'build'])
@@ -71,7 +70,6 @@ async function main() {
     }
     step('\nfinish jpublish')
   }
-
 }
 
 
