@@ -30,42 +30,43 @@ async function main() {
   if (!yes) {
     return
   }
+  let merge = await run('git', ['merge', 'origin/main'])
+  console.log(merge);
+  // step('\nRunning build...')
+  // await run('npm', ['run', 'build'])
 
-  step('\nRunning build...')
-  await run('npm', ['run', 'build'])
+  // step('\nCommitting changes...')
+  // await run('git', ['add', '-A'])
 
-  step('\nCommitting changes...')
-  await run('git', ['add', '-A'])
+  // let commitMsg = args.commit;
+  // if (!commitMsg) {
+  //   let { commit } = await prompt({
+  //     type: 'input',
+  //     name: 'commit',
+  //     message: 'input your commit',
+  //   })
+  //   commitMsg = commit
+  // }
+  // await run('git', ['commit', '-m', `${commitMsg}--auto`])
 
-  let commitMsg = args.commit;
-  if (!commitMsg) {
-    let { commit } = await prompt({
-      type: 'input',
-      name: 'commit',
-      message: 'input your commit',
-    })
-    commitMsg = commit
-  }
-  await run('git', ['commit', '-m', `${commitMsg}--auto`])
+  // step('\nPushing to GitHub...')
+  // await run('git', ['push'])
 
-  step('\nPushing to GitHub...')
-  await run('git', ['push'])
-
-  if (type === 'tag') {
-    let tagVersion = args.tag;
-    if (!tagVersion) {
-      let { tag } = await prompt({
-        type: 'input',
-        name: 'tag',
-        message: 'input your tag version',
-      })
-      tagVersion = tag
-    }
-    step('\nPushing tag to GitHub...')
-    await run('git', ['tag', tagVersion])
-    await run('git', ['push', '--tags'])
-  }
-  step('\nfinish jpublish')
+  // if (type === 'tag') {
+  //   let tagVersion = args.tag;
+  //   if (!tagVersion) {
+  //     let { tag } = await prompt({
+  //       type: 'input',
+  //       name: 'tag',
+  //       message: 'input your tag version',
+  //     })
+  //     tagVersion = tag
+  //   }
+  //   step('\nPushing tag to GitHub...')
+  //   await run('git', ['tag', tagVersion])
+  //   await run('git', ['push', '--tags'])
+  // }
+  // step('\nfinish jpublish')
 }
 
 
