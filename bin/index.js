@@ -42,7 +42,7 @@ async function main() {
     await run('npm', ['run', 'build'])
 
     step('\nCommitting changes...')
-    await run('git', ['add', '-A'])
+    await run('git', ['add', '.'])
 
     let commitMsg = args.commit;
     if (!commitMsg) {
