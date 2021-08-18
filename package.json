@@ -1,6 +1,6 @@
 {
   "name": "@jason-create/publish-helper",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "a publish helper tool",
   "main": "index.js",
   "publishConfig": {

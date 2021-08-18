@@ -35,6 +35,7 @@ async function main() {
 
   if (type === 'merge') {
     // merge master
+    await run('git', ['pull'])
     await run('git', ['merge', 'origin/master'])
   } else {
     // 打包以及提交
