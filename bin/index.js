@@ -38,9 +38,17 @@ async function main() {
     await run('git', ['pull'])
     await run('git', ['merge', 'origin/master'])
   } else {
-    // 打包以及提交
-    step('\nRunning build...')
-    await run('npm', ['run', 'build'])
+    const { build } = await prompt({
+      type: 'confirm',
+      name: 'build',
+      message: `Confirm?`
+    })
+
+    if (build) {
+      // 打包以及提交
+      step('\nRunning build...')
+      await run('npm', ['run', 'build'])
+    }
 
     step('\nCommitting changes...')
     await run('git', ['add', '.'])
