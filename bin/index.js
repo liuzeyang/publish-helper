@@ -26,7 +26,7 @@ async function main() {
   const { yes } = await prompt({
     type: 'confirm',
     name: 'yes',
-    message: `Confirm?`
+    message: `Confirm run commannd?`
   })
 
   if (!yes) {
@@ -41,7 +41,7 @@ async function main() {
     const { build } = await prompt({
       type: 'confirm',
       name: 'build',
-      message: `Confirm?`
+      message: `need build?`
     })
 
     if (build) {
